@@ -14,4 +14,8 @@ services:
       - ./mongo-data:/data/db
     command: --wiredTigerCacheSizeGB 1.5
   api:
-
+    image: test-nest-api:latest
+    container_name: test-api
+    restart: always
+    ports:
+      - "3000"
