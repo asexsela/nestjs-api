@@ -14,8 +14,14 @@ services:
       - ./mongo-data:/data/db
     command: --wiredTigerCacheSizeGB 1.5
   api:
-    image: test-nest-api:latest
+    image: asexsela/test-api:latest
     container_name: test-api
     restart: always
     ports:
-      - "3000"
+      - "${APP_PORT}:3000"
+    environment:
+      - MONGO_LOGIN=${MONGO_LOGIN}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - MONGO_PORT=${MONGO_PORT}
+      - MONGO_HOST=mongo
+      - MONGO_AUTHDATABASE=${MONGO_AUTHDATABASE}
