@@ -3,7 +3,7 @@ import {
 	Controller,
 	Delete,
 	Get,
-	HttpCode,
+	HttpCode, Logger,
 	NotFoundException,
 	Param,
 	Patch,
@@ -16,11 +16,17 @@ import { CreateTopPageDto } from './dto/create-top-page.dto';
 import { IdValidationPipe } from '../pipes/ad-validation.pipe';
 import { NOT_FOUND } from './top-page.constants';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { HhService } from '../hh/hh.service';
+import { Cron, CronExpression, SchedulerRegistry } from '@nestjs/schedule';
 
 @Controller('top-page')
 export class TopPageController {
 
-	constructor(private readonly topPageService: TopPageService) {}
+	constructor(
+		private readonly topPageService: TopPageService,
+		private readonly hhService: HhService,
+		private readonly scheduleRegistry: SchedulerRegistry
+	) {}
 
 	@UseGuards(JwtAuthGuard)
 	@UsePipes(new ValidationPipe())
@@ -80,5 +86,11 @@ export class TopPageController {
 	@Get('text-search/:text')
 	async textSearch(@Param('text') text: string) {
 		return this.topPageService.findByText(text);
+	}
+	
+	@Cron(CronExpression.EVERY_10_SECONDS, { name: 'test' })
+	async test() {
+		const job = this.scheduleRegistry.getCronJob('test');
+		Logger.log(`Test CRON ${job.running} ` + new Date());
 	}
 }
