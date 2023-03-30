@@ -1,0 +1,788 @@
+{
+	"info": {
+		"_postman_id": "61a0023b-32c4-4f75-b9e4-1cdd46486280",
+		"name": "NestJS test-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "7795553-61a0023b-32c4-4f75-b9e4-1cdd46486280"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4967afc3-02a9-4792-a531-7bf6c5668055",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "60077614-83cc-4061-a234-c98d33685702",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"login\": \"admin1@admin.com\",\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6a9e843a-ed42-4246-8915-2cbbd7240c70",
+								"exec": [
+									"var bodyValue = pm.response.json();",
+									"pm.environment.set(\"access_token\", bodyValue.access_token);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "e584fc16-4a65-4865-a672-80d1c0b9b2c9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"login\": \"admin@admin.com\",\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "6bfa386f-0a30-4b3f-b071-c07a738b3d29"
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Create",
+					"id": "29687487-eebd-42c1-8334-82c0c1b14dae",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"image\": \"1.png\",\n    \"title\": \"Product 1\",\n    \"price\": 100,\n    \"oldPrice\": 120,\n    \"credit\": 10,\n    \"description\": \"Product 1 description\",\n    \"advantages\": \"Advantages product\",\n    \"disAdvantages\": \"DisAdvantages product\",\n    \"categories\": [\"test\"],\n    \"tags\": [\"tag1\"],\n    \"characteristics\": [\n        {\n            \"name\": \"Characteristic 1\",\n            \"value\": \"1\"\n        },\n        {\n            \"name\": \"Characteristic 2\",\n            \"value\": \"2\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/product/create",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"product",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindWithReview",
+					"id": "1f5d3ae7-30df-43d4-9fbe-844aa6812a16",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"category\": \"test\",\n    \"limit\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/product/find",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"product",
+								"find"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"id": "f029275c-9505-4878-b48d-e217cf550fa5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"image\": \"3.png\",\n    \"title\": \"Product 2\",\n    \"price\": 100,\n    \"oldPrice\": 120,\n    \"credit\": 10,\n    \"description\": \"Product 1 description\",\n    \"advantages\": \"Advantages product\",\n    \"disAdvantages\": \"DisAdvantages product\",\n    \"categories\": [\"test\"],\n    \"tags\": [\"tag1\"],\n    \"characteristics\": [\n        {\n            \"name\": \"Characteristic 1\",\n            \"value\": \"1\"\n        },\n        {\n            \"name\": \"Characteristic 2\",\n            \"value\": \"2\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/product/639264b7071d2571abb4dbac",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"product",
+								"639264b7071d2571abb4dbac"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"id": "4c20ac5d-d39f-4773-9c72-71724c8bef68",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/product/63926486071d2571abb4dba6",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"product",
+								"63926486071d2571abb4dba6"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "a2a3d105-9cc2-4e38-bbf5-3e6813d34510"
+		},
+		{
+			"name": "TopPage",
+			"item": [
+				{
+					"name": "Create",
+					"id": "fe312a64-6240-4c93-b47b-08a5e9d4e800",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstCategory\": 2,\n    \"secondCategory\": \"BackEnd\",\n    \"alias\": \"php\",\n    \"title\": \"php Cources\",\n    \"category\": \"php\",\n    \"hh\": {\n        \"count\": 1000,\n        \"juniorSalary\": 120000,\n        \"middleSalary\": 220000,\n        \"seniorSalary\": 350000\n    },\n    \"advantages\": [\n        {\n            \"title\": \"Developer speed\",\n            \"description\": \"My description\"\n        }\n    ],\n    \"seoText\": \"seo text\",\n    \"tagsTitle\": \"Getting profits\",\n    \"tags\": [\"php\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/top-page/create",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"top-page",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find",
+					"id": "cbd7945c-7445-40b1-940f-8b85586760d7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstCategory\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/top-page/find",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"top-page",
+								"find"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test",
+					"id": "389d7cc1-0e05-4ef1-823d-9a6aecb19341",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/top-page/test",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"top-page",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"id": "c531bc62-7a85-4099-ab58-a8bae5e90b54",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/top-page/63b215ed334cbe14669215e7",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"top-page",
+								"63b215ed334cbe14669215e7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by Alias",
+					"id": "93f93253-68f7-4e97-b0f9-d0f5cdd1bf46",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/top-page/by-alias/typescript",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"top-page",
+								"by-alias",
+								"typescript"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search",
+					"id": "827f8ace-9bc2-4ca2-b768-7326ba5d2939",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/top-page/text-search/description",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"top-page",
+								"text-search",
+								"description"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"id": "b9ea8f6b-bf04-4885-8448-0ad05d3e8a26",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstCategory\": 2,\n    \"secondCategory\": \"Developers\",\n    \"alias\": \"typescript\",\n    \"title\": \"Typescript Cources\",\n    \"category\": \"typescript\",\n    \"hh\": {\n        \"count\": 1000,\n        \"juniorSalary\": 120000,\n        \"middleSalary\": 220000,\n        \"seniorSalary\": 350000\n    },\n    \"advantages\": [\n        {\n            \"title\": \"Developer speed\",\n            \"description\": \"My description\"\n        }\n    ],\n    \"seoText\": \"seo text\",\n    \"tagsTitle\": \"Getting profits\",\n    \"tags\": [\"TypeScript\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/top-page/63b207acf476a204a012b490",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"top-page",
+								"63b207acf476a204a012b490"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"id": "e4c625a5-24fc-4b7d-89a7-9c8119699d7f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/top-page/63b209d4ce2819d1ec04f77d",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"top-page",
+								"63b209d4ce2819d1ec04f77d"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "e7d21e12-385b-45cf-83b4-e5f50218cb56"
+		},
+		{
+			"name": "Review",
+			"item": [
+				{
+					"name": "Create",
+					"id": "72f33d79-5f6e-46df-b9bb-4866b8416f44",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Review 2\",\n    \"title\": \"Title\",\n    \"rating\": 5,\n    \"description\": \"Review 1 description\",\n    \"productId\": \"639264b7071d2571abb4dbac\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/review/create",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"review",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Notify",
+					"id": "d2419544-c0d3-48ab-b4e3-c1c12a571bce",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Review 2\",\n    \"title\": \"Title\",\n    \"rating\": 5,\n    \"description\": \"Review 1 description\",\n    \"productId\": \"639264b7071d2571abb4dbac\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/review/notify",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"review",
+								"notify"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "5612b932-2d72-4b52-89d3-3c810c9d4b57"
+		},
+		{
+			"name": "Files",
+			"item": [
+				{
+					"name": "UploadFiles",
+					"id": "94946b23-45f4-4457-9853-93b860071aaa",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": "/Users/alexander/Downloads/apple-icon-removebg-preview.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/files/upload",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"files",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetFile",
+					"id": "3ad31761-6e61-49e4-be3b-012c9918b760",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseUrl}}/static/2023-01-02/apple-icon-removebg-preview.webp",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"static",
+								"2023-01-02",
+								"apple-icon-removebg-preview.webp"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "1745ec26-da07-4e0d-ade4-80af00decaff"
+		},
+		{
+			"name": "Sitemap",
+			"item": [
+				{
+					"name": "GetSitemap",
+					"id": "1625fb7c-1fde-4ee6-9fda-85d99f1e47fd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/sitemap/xml",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"sitemap",
+								"xml"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "3a8b0731-6b70-481b-b07b-3a51c070f1ab"
+		},
+		{
+			"name": "Test",
+			"id": "2d1cdb25-bb82-4832-8469-3584f6565e0e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTY3MDE3NzM0NX0.mFfb1a_lU9W8h6tpFWTzypWVO8l1pZnOUnU9GNuCX2E",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/review/byProduct/638cc4f4ef2044b6ac5dfc65",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"review",
+						"byProduct",
+						"638cc4f4ef2044b6ac5dfc65"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
